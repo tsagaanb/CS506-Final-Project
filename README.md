@@ -1,14 +1,14 @@
 # Starbucks Wait Time Prediction at GSU
 
 ## Description
-This project aims to predict the wait time of Starbucks orders at Georgia State University (GSU) based on the time of day and day of the week. By analyzing patterns in wait times, the project will help students make informed decisions about when to place their orders.
+This project aims to predict the wait time of Starbucks orders at George Sherman Union (GSU) based on the time of day and day of the week. In other words, the user should be able to input any time during Starbucks' business hours and have returned the estimated wait time based on the current minute and day. By analyzing patterns in wait times, the project will help students make informed decisions about when to place their orders.
 
 ## Clear Goal(s)
 - Predicting the wait time of Starbucks at GSU depending on the time of the day and day of the week.
 
 ## Data Collection
 - **Data to be Collected:** The number of students in line and the estimated wait time at Starbucks.
-- **Collection Method:** Data will be collected through the Grubhub application at 10-minute intervals during the open hours, Monday through Sunday.
+- **Collection Method:** Data will be collected through the Grubhub application at 15-minute intervals during the open hours, Monday through Sunday.
 
 ## Data Modeling
 - **Modeling Techniques:**
