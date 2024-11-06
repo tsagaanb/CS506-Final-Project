@@ -1,3 +1,4 @@
+## Presentation Link: https://youtu.be/BVTZtaF_h24 
 # MidSemester Report: Starbucks Wait Time Prediction at George Sherman Union
 ## Description
 This project aims to predict the wait time of Starbucks orders at George Sherman Union (GSU) based on the time of day and day of the week. In other words, the user should be able to input any time during Starbucks' business hours and have returned the estimated wait time based on the current minute and day. By analyzing patterns in wait times, the project will help students make informed decisions about when to place their orders.
