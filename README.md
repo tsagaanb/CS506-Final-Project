@@ -1,39 +1,9 @@
-# Starbucks Wait Time Prediction at GSU
-
+# MidSemester Report: Starbucks Wait Time Prediction at George Sherman Union
 ## Description
 This project aims to predict the wait time of Starbucks orders at George Sherman Union (GSU) based on the time of day and day of the week. In other words, the user should be able to input any time during Starbucks' business hours and have returned the estimated wait time based on the current minute and day. By analyzing patterns in wait times, the project will help students make informed decisions about when to place their orders.
 
 ## Clear Goal(s)
 - Predicting the wait time of Starbucks at GSU depending on the time of the day and day of the week.
-
-## Data Collection
-- **Data to be Collected:** The number of students in line and the estimated wait time at Starbucks.
-- **Collection Method:** Data will be collected through the Grubhub application at 15-minute intervals during the open hours, Monday through Sunday.
-
-## Data Modeling
-- **Modeling Techniques:**
-  - ARIMA (AutoRegressive Integrated Moving Average) for time series forecasting.
-  - Linear regression to understand trends in wait times based on time of day.
-  - Machine learning methods like Random Forests or XGBoost to capture nonlinear relationships, using features such as time of day and day of the week.
-  - 
-
-## Data Visualization
-- **Visualization Methods:**
-  - Line graphs showing wait time trends throughout the day.
-  - Heatmaps displaying wait times by hour and day.
-  - Box plots illustrating the distribution of wait times across different times.
-
-## Test Plan
-- **Testing Approach:**
-  - Withhold 20% of the collected data for testing.
-  - Train on data collected over a specified period (e.g., one month) and validate the model on the data collected during the subsequent month.
-  - Use k-fold cross-validation to ensure robustness of the model across different time frames.
-  - **Training Data Collection:** Throughout October (October 4th - October 31st).
-  - **Testing Data Collection:** Throughout November (November 1st - November 28th).
- 
-
-
-# MidSemester Report: Starbucks Wait Time Prediction at George Sherman Union
 
 ## Data Collection
 To make accurate predictions, we collected the following key data points:
@@ -83,5 +53,10 @@ The Mean Squared Errors from each model were as follows:
 ## Conclusion
 The Decision Tree model emerged as the most effective for our dataset, achieving the lowest MSE. Based on these results, we chose Decision Tree Regression as our primary model for predicting Starbucks wait times. Moving forward, we plan to refine the model further by incorporating additional factors, such as events or promotions, that could influence wait times.
 
+## Future Plans: Test Plan
+- **Testing Approach:**
+  - **Testing Data Collection:** Throughout November (November 1st - November 28th).
+  - Use the testing data to see if our model is achieving promising results.
+  - Upgrade our model to fit the training data better if we do not achieve the results that we wanted and test on the testing data again.
  
 
