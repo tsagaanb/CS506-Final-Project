@@ -84,6 +84,7 @@ The project includes a CI/CD workflow (`.github/workflows/main.yml`) that:
    - Cyclic encoding for `Hour` using sine and cosine transformations.
    - Binary indicator for weekends (`IsWeekend`).
    - Categorical encoding for `PartOfDay`.
+   - Dropped NaN values in the `Wait Time (mins)` column.
 
 2. **Preprocessing Pipeline:** 
    - One-hot encoding for categorical variables.
