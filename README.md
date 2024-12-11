@@ -119,6 +119,10 @@ A plot showing the importance of features such as DayOfWeek, Hour, and PartOfDay
 ### Sample Outputs
 Generated plots are saved in the `static/plots/` directory and displayed on the `/our_model` route.
 
+## Progress Since Midterm Report
+- We collected data from November 1st to November 14th (2 weeks) and used that as our testing data. We fit our testing data to the model and tried to improve the test MSE.
+- We experimented with various pipelining techniques and regressors, including RandomForestRegressor, XGBRegressor, GradientBoostingRegressor, VotingRegressor, and Cross-Validation with different hyperparameter tuning approaches, to enhance our decision tree model and minimize the test Mean Squared Error (MSE). However, most methods resulted in negligible improvements. The only method that showed a meaningful improvement was GradientBoostingRegressor, which reduced the test MSE from 10.75 to 10.70.
+
 ## Results
 
 ### Achieved Goals
