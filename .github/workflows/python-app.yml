@@ -27,6 +27,10 @@ jobs:
     - name: Install dependencies
       run: make install
 
+    # Set PYTHONPATH for the current project
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
+
     # Run the Flask application in the background
     - name: Run Flask application
       run: |
