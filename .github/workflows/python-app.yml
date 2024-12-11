@@ -1,4 +1,4 @@
-name: Run Tests
+name: Python Flask Application CI
 
 on:
   push:
@@ -9,30 +9,37 @@ on:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+    # Checkout the repository code
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # Set up Python
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
+    # Set up Python environment
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
 
-      # Install dependencies
-      - name: Install dependencies
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-          pip install -r requirements.txt
+    # Install dependencies by running `make install`
+    - name: Install dependencies
+      run: make install
 
-      # Run tests
-      - name: Run tests
-        run: |
-          source venv/bin/activate
-          pytest --maxfail=5 --disable-warnings -q
+    # Run the Flask application in the background
+    - name: Run Flask application
+      run: |
+        nohup make run &
+        sleep 5
+
+    # Verify that the Flask application is running
+    - name: Verify Flask application
+      run: |
+        curl --fail http://localhost:3000 || exit 1
+
+    # Run tests to validate the application
+    - name: Run tests
+      run: |
+        source venv/bin/activate
+        pytest --maxfail=5 --disable-warnings -q
