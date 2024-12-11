@@ -1,0 +1,163 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #006241;
+    color: white;
+    padding: 1em;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1em;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Page Container */
+body > nav + hr {
+    margin: 0;
+    border: none;
+    border-top: 2px solid #006241;
+}
+
+hr {
+    margin: 2em 0;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+h1, h2, h3, h4 {
+    text-align: center;
+    color: #006241;
+}
+
+h1 {
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    margin-top: 1.5em;
+    font-weight: normal;
+}
+
+p {
+    text-align: center;
+}
+/* Forms */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 2em auto;
+    background: white;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    color: #555;
+}
+
+input {
+    padding: 0.8em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+button {
+    background-color: #006241;
+    color: white;
+    border: none;
+    padding: 0.8em;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #006241;
+}
+
+/* Images */
+img {
+    display: block;
+    max-width: 90%;
+    margin: 2em auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 3em;
+    padding: 1em;
+    background-color: #006241;
+    color: white;
+    font-size: 0.9em;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+}
+
+
+select {
+    width: 100%;
+    padding: 0.8em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+select:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.metrics-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.metrics-container h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.metrics-container p {
+    font-size: 1.1em;
+    color: #555;
+    margin: 5px 0;
+}

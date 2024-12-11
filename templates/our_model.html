@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Our Model</h1>
+
+<!-- Display Accuracy Metrics -->
+<div class="metrics-container">
+    <h2>Model Performance</h2>
+    <p><b>Training Mean Squared Error (MSE):</b> {{ train_mse }}</p>
+    <p><b>Testing Mean Squared Error (MSE):</b> {{ test_mse }}</p>
+    <p><b>Root Mean Squared Error (RMSE):</b> {{ test_rmse }}</p>
+    <p><b>Mean Absolute Error (MAE):</b> {{ test_mae }}</p>
+</div>
+
+<hr>
+
+<!-- Display Graphs for Each Day -->
+<h2>Actual vs Predicted Wait Times</h2>
+{% for day in days_of_week %}
+    <h3>{{ day }}</h3>
+    <img src="{{ url_for('static', filename='plots/' ~ day ~ '_comparison.png') }}" alt="Actual vs Predicted for {{ day }}" style="max-width: 100%; margin-bottom: 2em;">
+{% endfor %}
+
+{% endblock %}

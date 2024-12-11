@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Starbucks Wait Time Predictor</h1>
+<form method="POST" action="{{ url_for('predict') }}">
+    <label for="day">Day of the Week:</label>
+    <select id="day" name="day" onchange="updateTimeOptions()" required>
+        <option value="" disabled selected>Select a day</option>
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
+        <option value="Sunday">Sunday</option>
+    </select>
+    <br><br>
+
+    <label for="time">Time of Day (15-minute intervals):</label>
+    <select id="time" name="time" required>
+        <option value="" disabled selected>Select a time</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Predict</button>
+</form>
+
+{% if prediction %}
+<h3><u>Predicted Wait Time for <b>{{ day }}</b> at <b>{{ time }}</b>: <b>{{ prediction }} mins</b></u></h3>
+
+{% if plot_filename %}
+<hr>
+    <h4>Predicted Wait Times for the Day:</h4>
+    <img src="{{ url_for('static', filename=plot_filename.split('static/')[1]) }}" alt="Predicted Wait Times">
+{% endif %}
+{% endif %}
+
+<!-- JavaScript for Dynamic Time Options -->
+<script>
+    const operationHours = {
+        "Monday": { start: "07:00", end: "20:00" },
+        "Tuesday": { start: "07:00", end: "20:00" },
+        "Wednesday": { start: "07:00", end: "20:00" },
+        "Thursday": { start: "07:00", end: "20:00" },
+        "Friday": { start: "07:00", end: "19:00" },
+        "Saturday": { start: "11:30", end: "19:00" },
+        "Sunday": { start: "11:30", end: "19:00" }
+    };
+
+    function updateTimeOptions() {
+        // Get selected day
+        const day = document.getElementById("day").value;
+        const timeSelect = document.getElementById("time");
+        timeSelect.innerHTML = '<option value="" disabled selected>Select a time</option>'; // Reset options
+
+        if (operationHours[day]) {
+            // Get start and end times for the selected day
+            const startTime = operationHours[day].start;
+            const endTime = operationHours[day].end;
+
+            // Generate 15-minute intervals
+            let current = new Date(`1970-01-01T${startTime}:00`);
+            const end = new Date(`1970-01-01T${endTime}:00`);
+
+            while (current <= end) {
+                const time = current.toTimeString().substring(0, 5); // Format as HH:MM
+                const option = document.createElement("option");
+                option.value = time;
+                option.text = time;
+                timeSelect.appendChild(option);
+
+                // Increment by 15 minutes
+                current.setMinutes(current.getMinutes() + 15);
+            }
+        }
+    }
+</script>
+{% endblock %}
