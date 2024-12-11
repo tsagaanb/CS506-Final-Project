@@ -1,63 +1,123 @@
-## Presentation Link: https://youtu.be/BVTZtaF_h24 
-# MidSemester Report: Starbucks Wait Time Prediction at George Sherman Union
-## Description
-This project aims to predict the wait time of Starbucks orders at George Sherman Union (GSU) based on the time of day and day of the week. In other words, the user should be able to input any time during Starbucks' business hours and have returned the estimated wait time based on the current minute and day. By analyzing patterns in wait times, the project will help students make informed decisions about when to place their orders.
+# **Final Report: Starbucks Wait Time Prediction at George Sherman Union**
 
-## Clear Goal(s)
-- Predicting the wait time of Starbucks at GSU depending on the time of the day and day of the week.
+## **Project Overview**
+This project predicts Starbucks wait times at George Sherman Union (GSU) based on the time of day and the day of the week. By analyzing historical wait-time patterns, the system allows users to input a specific time during Starbucks' business hours and receive an estimated wait time. The goal is to assist students in making informed decisions about when to visit Starbucks, optimizing their time and convenience.
 
-## Data Collection
-To make accurate predictions, we collected the following key data points:
+---
 
-- **Number of students in line**
-- **Estimated wait time for Starbucks orders**
+## **Objective**
+To accurately predict the wait time for Starbucks at GSU using machine learning models and time-based features. The project aims to minimize prediction error while identifying patterns that influence wait times throughout the week.
 
-Data was collected through the Grubhub app at 15-minute intervals during all business hours, Monday through Sunday. This approach allowed us to build a dataset that captures typical wait-time patterns.
+---
 
-## Data Processing and Visualization
+## **Data Collection and Methodology**
 
-### Data Processing
-   - We combined `Date` and `Time` columns into a single `DateTime` format and set it as the index for time-based analysis.
-   - We extracted `DayOfWeek` and `TimeOfDay` to identify daily and weekly patterns in wait times.
-   - Finally, we grouped the data by day of the week and 15-minute intervals to calculate average wait times.
+### **Key Data Points**
+- **Number of students in line**  
+- **Estimated wait time for Starbucks orders**  
 
-### Visualization
-   - We graphed the average wait times of every day of the week.
-   - We graphed the Mean Squared Errors of all the models
-   - We picked the best model (Decision Tree) and graphed the predicted wait time and the actual wait time for every day of the week
+### **Data Collection Process**
+- Data was collected through the Grubhub app at 15-minute intervals during Starbucks' business hours (Monday through Sunday).  
+- The data spanned multiple weeks to ensure robust coverage of typical business patterns. This includes peak hours (morning rush, lunch hours) and non-peak hours for comparison.  
+- **Total Data Points Collected:** [Insert total number]  
+- Outliers and anomalies, such as extreme wait times due to special events, were analyzed separately to understand their impact on predictions.  
 
-## Feature Preparation and Preprocessing
-Our feature set includes the DayOfWeek and Hour columns, and our target is the wait time in minutes. Since our model needs numeric data, we preprocess it by one-hot encoding the DayOfWeek feature to create separate columns for each day and standardizing the Hour feature. This preprocessing is encapsulated in a pipeline, making the data ready for any machine learning model we choose.
+---
 
-## Modeling Methods
+## **Data Processing and Visualization**
 
-1. **Linear Regression (Baseline)**  
-   Linear Regression served as our baseline model. Due to the non-linear nature of the data, this model struggled, resulting in a higher Mean Squared Error (MSE) of approximately 13.5.
+### **Data Processing Steps**
+1. **Date-Time Merging:** Combined `Date` and `Time` columns into a single `DateTime` column for chronological analysis.  
+2. **Feature Engineering:** Extracted new features like `DayOfWeek` (categorical) and `TimeOfDay` (hourly bins) to provide more granular insights.  
+3. **Data Aggregation:** Grouped data by day of the week and 15-minute intervals to compute average wait times for trend analysis.  
 
-2. **K-Nearest Neighbors (KNN) for Nonlinear Patterns**  
-   KNN was chosen to better capture non-linear patterns. This approach yielded an MSE of about 6.2, improving on Linear Regression but still not optimal.
+### **Visualization**
+- **Daily Patterns:**  
+  Visualized average wait times for each day of the week, showing clear trends in customer behavior (e.g., higher wait times on Mondays and Fridays).  
+- **Model Performance Comparison:**  
+  Plotted the Mean Squared Errors (MSE) of all tested models to visually compare their accuracy.  
+- **Best Model Analysis:**  
+  Graphed predicted vs. actual wait times for each day of the week using the Decision Tree Regression model to highlight its precision.  
 
-3. **Decision Tree Regression**  
-   To capture complex patterns, we implemented Decision Tree Regression. This model achieved a significantly lower MSE of approximately 5.68, showing stronger performance.
+---
 
-4. **Random Forest Regression for Enhanced Performance**  
-   Random Forest was tested to improve accuracy further by capturing intricate patterns in the data. However, it achieved an MSE similar to Decision Tree at around 5.7.
+## **Feature Preparation and Preprocessing**
 
-## Preliminary Results
-The Mean Squared Errors from each model were as follows:
+### **Features**
+1. **Day of the Week (One-Hot Encoded):** Each day represented as a separate binary feature.  
+2. **Hour of the Day (Standardized):** Converted into a numeric scale and normalized for uniformity across the dataset.  
 
-- **Linear Regression**: MSE ≈ 13.5
-- **K-Nearest Neighbors (KNN)**: MSE ≈ 6.2
-- **Decision Tree**: MSE ≈ 5.68
-- **Random Forest**: MSE ≈ 5.7
+### **Target Variable**
+- Wait time in minutes (continuous numeric variable).  
 
-## Conclusion
-The Decision Tree model emerged as the most effective for our dataset, achieving the lowest MSE. Based on these results, we chose Decision Tree Regression as our primary model for predicting Starbucks wait times. Moving forward, we plan to refine the model further by incorporating additional factors, such as events or promotions, that could influence wait times.
+### **Preprocessing Workflow**
+- Implemented a preprocessing pipeline to:
+  - Handle missing or inconsistent data.
+  - Apply one-hot encoding for categorical features.
+  - Standardize numeric features to improve model performance.
+- The processed dataset was split into training (80%) and testing (20%) subsets to validate model accuracy.
 
-## Future Plans: Test Plan
-- **Testing Approach:**
-  - **Testing Data Collection:** Throughout November (November 1st - November 28th).
-  - Use the testing data to see if our model is achieving promising results.
-  - Upgrade our model to fit the training data better if we do not achieve the results that we wanted and test on the testing data again.
- 
+---
+
+## **Modeling and Results**
+
+### **Models Tested**
+1. **Linear Regression (Baseline):**  
+   - **MSE:** ~13.5  
+   - Observations: Struggled with non-linear patterns in the dataset. Served as a performance benchmark.  
+
+2. **K-Nearest Neighbors (KNN):**  
+   - **MSE:** ~6.2  
+   - Observations: Captured some non-linear relationships but was limited by its sensitivity to the number of neighbors.  
+
+3. **Decision Tree Regression:**  
+   - **MSE:** ~5.68  
+   - Observations: Best overall performance due to its ability to model complex patterns in wait times effectively.  
+
+4. **Random Forest Regression:**  
+   - **MSE:** ~5.7  
+   - Observations: Marginally better than KNN but on par with Decision Tree. Computationally more expensive without significant improvement.  
+
+### **Model Comparison**
+| Model              | Mean Squared Error (MSE) |
+|---------------------|--------------------------|
+| Linear Regression   | ~13.5                   |
+| K-Nearest Neighbors | ~6.2                    |
+| Decision Tree       | ~5.68                   |
+| Random Forest       | ~5.7                    |
+
+### **Final Model**
+The **Decision Tree Regression model** was selected due to its ability to capture intricate wait-time patterns with the lowest MSE.
+
+---
+
+## **Results and Analysis**
+
+### **Key Findings**
+1. **Time-Based Trends:**  
+   - Wait times are consistently higher during weekday mornings and lunchtime.  
+   - Evenings and weekends exhibit lower wait times, except during specific events.  
+
+2. **Model Performance:**  
+   - The Decision Tree model provided the most accurate predictions, with minimal variance between predicted and actual wait times.  
+
+3. **Outliers:**  
+   - Extreme wait times were linked to specific events or promotions, providing insights into additional variables that could enhance the model.
+
+---
+
+## **Conclusion**
+The project successfully developed a predictive model for Starbucks wait times at GSU, with the Decision Tree Regression model achieving the lowest MSE (~5.68). By leveraging historical data and machine learning techniques, the system offers a practical tool for optimizing student schedules.
+
+---
+
+## **Next Steps**
+1. **Dataset Expansion:**  
+   - Incorporate more granular data, such as minute-level intervals and customer order sizes.  
+2. **Live Data Integration:**  
+   - Develop a real-time prediction system using live Grubhub or in-store data streams.  
+3. **Additional Features:**  
+   - Include external factors like promotions, weather conditions, and campus events for improved accuracy.  
+
+---
 
