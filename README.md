@@ -1,123 +1,132 @@
-# **Final Report: Starbucks Wait Time Prediction at George Sherman Union**
 
-## **Project Overview**
-This project predicts Starbucks wait times at George Sherman Union (GSU) based on the time of day and the day of the week. By analyzing historical wait-time patterns, the system allows users to input a specific time during Starbucks' business hours and receive an estimated wait time. The goal is to assist students in making informed decisions about when to visit Starbucks, optimizing their time and convenience.
 
----
+# Starbucks Wait Time Prediction Web App
 
-## **Objective**
-To accurately predict the wait time for Starbucks at GSU using machine learning models and time-based features. The project aims to minimize prediction error while identifying patterns that influence wait times throughout the week.
+## Overview
+This project predicts the wait time for Starbucks orders at George Sherman Union (GSU) based on the day of the week and time of day. By analyzing patterns in wait times, the app helps students make informed decisions about when to place their orders, saving time and enhancing convenience.
 
----
+## Table of Contents
+- How to Build and Run the Code
+- Test Code and GitHub Workflow
+- Data Processing and Modeling
+- Visualizations
+- Results
 
-## **Data Collection and Methodology**
+## How to Build and Run the Code
 
-### **Key Data Points**
-- **Number of students in line**  
-- **Estimated wait time for Starbucks orders**  
+### Prerequisites
+Ensure you have the following installed:
+- Python 3.9 or later
+- pip (Python package manager)
 
-### **Data Collection Process**
-- Data was collected through the Grubhub app at 15-minute intervals during Starbucks' business hours (Monday through Sunday).  
-- The data spanned multiple weeks to ensure robust coverage of typical business patterns. This includes peak hours (morning rush, lunch hours) and non-peak hours for comparison.  
-- **Total Data Points Collected:** [Insert total number]  
-- Outliers and anomalies, such as extreme wait times due to special events, were analyzed separately to understand their impact on predictions.  
+### Steps
+1. **Clone the Repository**
+   ```bash
+   git clone git@github.com:tsagaanb/CS506-Final-Project.git
+   cd CS506-Final-Project
+   ```
 
----
+2. **Install Dependencies**
+   Use the provided Makefile for streamlined setup:
+   ```bash
+   make install
+   ```
+   This command creates a virtual environment and installs all dependencies from `requirements.txt`.
 
-## **Data Processing and Visualization**
+3. **Run the Flask Application**
+   ```bash
+   make run
+   ```
+   The application will start running at `http://127.0.0.1:3000/`.
 
-### **Data Processing Steps**
-1. **Date-Time Merging:** Combined `Date` and `Time` columns into a single `DateTime` column for chronological analysis.  
-2. **Feature Engineering:** Extracted new features like `DayOfWeek` (categorical) and `TimeOfDay` (hourly bins) to provide more granular insights.  
-3. **Data Aggregation:** Grouped data by day of the week and 15-minute intervals to compute average wait times for trend analysis.  
+4. **Alternative Manual Setup**
+   If you prefer manual setup:
+   - Set up a virtual environment:
+     ```bash
+     python -m venv venv
+     source venv/bin/activate   # On Mac/Linux
+     venv\Scripts\activate      # On Windows
+     ```
+   - Install dependencies:
+     ```bash
+     pip install -r requirements.txt
+     ```
+   - Run the application:
+     ```bash
+     python app.py
+     ```
 
-### **Visualization**
-- **Daily Patterns:**  
-  Visualized average wait times for each day of the week, showing clear trends in customer behavior (e.g., higher wait times on Mondays and Fridays).  
-- **Model Performance Comparison:**  
-  Plotted the Mean Squared Errors (MSE) of all tested models to visually compare their accuracy.  
-- **Best Model Analysis:**  
-  Graphed predicted vs. actual wait times for each day of the week using the Decision Tree Regression model to highlight its precision.  
+## Test Code and GitHub Workflow
 
----
+### Running Tests
+The `tests/` folder contains a test script for verifying model predictions and application functionality. Run all tests using:
+```bash
+make test
+```
 
-## **Feature Preparation and Preprocessing**
+### GitHub Workflow
+The project includes a CI/CD workflow (`.github/workflows/main.yml`) that:
+- Runs tests automatically on every push to the repository.
+- Validates data preprocessing logic, model predictions, and Flask pipeline functionality.
 
-### **Features**
-1. **Day of the Week (One-Hot Encoded):** Each day represented as a separate binary feature.  
-2. **Hour of the Day (Standardized):** Converted into a numeric scale and normalized for uniformity across the dataset.  
+## Data Processing and Modeling
 
-### **Target Variable**
-- Wait time in minutes (continuous numeric variable).  
+### Data Collection
+- **Source:** Data was collected via the Grubhub app at 15-minute intervals during business hours (Monday through Sunday).
+- **Features:** 
+  - `DayOfWeek`: Categorical representation of the day.
+  - `Hour`: Numeric representation of the hour.
+  - `IsWeekend`: Binary feature for weekends.
+  - `PartOfDay`: Morning, Afternoon, or Evening.
 
-### **Preprocessing Workflow**
-- Implemented a preprocessing pipeline to:
-  - Handle missing or inconsistent data.
-  - Apply one-hot encoding for categorical features.
-  - Standardize numeric features to improve model performance.
-- The processed dataset was split into training (80%) and testing (20%) subsets to validate model accuracy.
+### Data Processing
+1. **Feature Engineering:**
+   - Cyclic encoding for `Hour` using sine and cosine transformations.
+   - Binary indicator for weekends (`IsWeekend`).
+   - Categorical encoding for `PartOfDay`.
 
----
+2. **Preprocessing Pipeline:** 
+   - One-hot encoding for categorical variables.
+   - Standardization for numerical features.
 
-## **Modeling and Results**
+### Model
+We evaluated multiple models:
+- Linear Regression: Baseline with MSE ≈ 13.5.
+- K-Nearest Neighbors (KNN): Non-linear patterns, MSE ≈ 6.2.
+- Decision Tree Regression: Complex patterns, MSE ≈ 5.68.
+- Gradient Boosting Regressor: Final model with MSE ≈ 5.58.
 
-### **Models Tested**
-1. **Linear Regression (Baseline):**  
-   - **MSE:** ~13.5  
-   - Observations: Struggled with non-linear patterns in the dataset. Served as a performance benchmark.  
+### Model Performance 
+| Metric                 | Training Data | Testing Data |
+|------------------------|---------------|--------------|
+| Mean Squared Error (MSE) | 5.61          | 10.70        |
+| Root Mean Squared Error (RMSE) | 2.36          | 3.27         |
+| Mean Absolute Error (MAE) | 2.28          | 2.28         |
 
-2. **K-Nearest Neighbors (KNN):**  
-   - **MSE:** ~6.2  
-   - Observations: Captured some non-linear relationships but was limited by its sensitivity to the number of neighbors.  
 
-3. **Decision Tree Regression:**  
-   - **MSE:** ~5.68  
-   - Observations: Best overall performance due to its ability to model complex patterns in wait times effectively.  
+## Visualizations
 
-4. **Random Forest Regression:**  
-   - **MSE:** ~5.7  
-   - Observations: Marginally better than KNN but on par with Decision Tree. Computationally more expensive without significant improvement.  
+### Key Visualizations
+1. **Daily Average Wait Times:**
+Interactive graphs displaying average wait times for each day of the week help users visualize trends.
 
-### **Model Comparison**
-| Model              | Mean Squared Error (MSE) |
-|---------------------|--------------------------|
-| Linear Regression   | ~13.5                   |
-| K-Nearest Neighbors | ~6.2                    |
-| Decision Tree       | ~5.68                   |
-| Random Forest       | ~5.7                    |
+2. **Actual vs Predicted Wait Times:**
+For every day of the week, graphs compare actual wait times with model-predicted values, providing transparency into model performance.
 
-### **Final Model**
-The **Decision Tree Regression model** was selected due to its ability to capture intricate wait-time patterns with the lowest MSE.
+3. **Feature Importance:**
+A plot showing the importance of features such as DayOfWeek, Hour, and PartOfDay, highlighting what drives the model's predictions.
 
----
+### Sample Outputs
+Generated plots are saved in the `static/plots/` directory and displayed on the `/our_model` route.
 
-## **Results and Analysis**
+## Results
 
-### **Key Findings**
-1. **Time-Based Trends:**  
-   - Wait times are consistently higher during weekday mornings and lunchtime.  
-   - Evenings and weekends exhibit lower wait times, except during specific events.  
+### Achieved Goals
+- **Prediction Functionality:** Users can input a day and time to get predicted wait times.
+- **Interactive Visualizations:** 
+  - Actual vs predicted wait times for each day of the week.
+  - Predicted wait times for an entire day based on user input.
+- **Model Performance:** The Gradient Boosting model achieved a testing MSE of **10.70**.
 
-2. **Model Performance:**  
-   - The Decision Tree model provided the most accurate predictions, with minimal variance between predicted and actual wait times.  
-
-3. **Outliers:**  
-   - Extreme wait times were linked to specific events or promotions, providing insights into additional variables that could enhance the model.
-
----
-
-## **Conclusion**
-The project successfully developed a predictive model for Starbucks wait times at GSU, with the Decision Tree Regression model achieving the lowest MSE (~5.68). By leveraging historical data and machine learning techniques, the system offers a practical tool for optimizing student schedules.
-
----
-
-## **Next Steps**
-1. **Dataset Expansion:**  
-   - Incorporate more granular data, such as minute-level intervals and customer order sizes.  
-2. **Live Data Integration:**  
-   - Develop a real-time prediction system using live Grubhub or in-store data streams.  
-3. **Additional Features:**  
-   - Include external factors like promotions, weather conditions, and campus events for improved accuracy.  
-
----
-
+### Final Visualizations
+Interactive plots and graphs are embedded within the app, providing users with insights and transparency.
