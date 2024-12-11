@@ -95,8 +95,6 @@ def save_plot(actual, predicted, title, filename):
     plt.savefig(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     plt.close()
 
-save_plot(y_train, y_train_pred, "Training Data: Actual vs Predicted", "train_plot.png")
-save_plot(y_test, y_test_pred, "Testing Data: Actual vs Predicted", "test_plot.png")
 
 # Routes
 @app.route('/')
